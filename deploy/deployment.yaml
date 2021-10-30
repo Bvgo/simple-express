@@ -2,10 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-app-2
-  labels:
-    app: my-app-2
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: my-app-2
@@ -16,7 +13,11 @@ spec:
     spec:
       containers:
       - name: simple-express
-        image: YOUR-DOCKER-ID/simple-express
+        image: bvgo/simple-express
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         ports:
         - containerPort: 8080
         livenessProbe:
@@ -25,3 +26,4 @@ spec:
             port: 8080
           initialDelaySeconds: 3
           periodSeconds: 3
+          
